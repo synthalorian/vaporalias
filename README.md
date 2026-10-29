@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/assets/vaporalias-banner.png" alt="vaporalias banner" width="100%"></p>
+
 # Vaporalias
 
 > **Jack into the grid. See what it knows about you. Pull the plug on the leaks.**
