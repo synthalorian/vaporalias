@@ -1,7 +1,8 @@
 """The one and only color helper. Cyan + magenta on black, neon-grid style.
 
 Color is disabled when:
-  * the NO_COLOR environment variable is set (any value, per no-color.org), or
+  * the NO_COLOR environment variable is set to a non-empty value
+    (per no-color.org; an empty NO_COLOR is ignored), or
   * the target stream is not a TTY.
 """
 
@@ -21,7 +22,7 @@ DIM = "\033[2m"
 
 def color_enabled(stream: Optional[TextIO] = None, environ=None) -> bool:
     env = os.environ if environ is None else environ
-    if "NO_COLOR" in env:
+    if env.get("NO_COLOR", ""):
         return False
     stream = sys.stdout if stream is None else stream
     isatty = getattr(stream, "isatty", None)

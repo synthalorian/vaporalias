@@ -97,6 +97,9 @@ def check_profiles(
                 findings.append(ProfileFinding(site, url, FOUND, "profile exists"))
         elif res.status in (404, 410):
             findings.append(ProfileFinding(site, url, NOT_FOUND))
+        elif 300 <= res.status < 400:
+            target = f" -> {res.location}" if res.location else ""
+            findings.append(ProfileFinding(site, url, ERROR, f"HTTP {res.status} redirect not followed{target}"))
         else:
             findings.append(ProfileFinding(site, url, ERROR, f"HTTP {res.status}"))
     return findings

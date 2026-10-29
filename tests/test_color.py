@@ -16,8 +16,12 @@ def test_no_color_env_disables_even_on_tty():
     assert color_enabled(TTYBuffer(True), environ={"NO_COLOR": "1"}) is False
 
 
-def test_no_color_empty_value_still_disables():
-    assert color_enabled(TTYBuffer(True), environ={"NO_COLOR": ""}) is False
+def test_no_color_empty_value_is_ignored():
+    assert color_enabled(TTYBuffer(True), environ={"NO_COLOR": ""}) is True
+
+
+def test_no_color_empty_value_still_respects_non_tty():
+    assert color_enabled(io.StringIO(), environ={"NO_COLOR": ""}) is False
 
 
 def test_non_tty_disables():
@@ -47,6 +51,12 @@ def test_cli_output_has_no_ansi_with_no_color_on_tty():
     buf = TTYBuffer(True)
     main(ARGS, out=buf, environ={"NO_COLOR": "1"})
     assert "\033[" not in buf.getvalue()
+
+
+def test_cli_output_colored_on_tty_with_empty_no_color():
+    buf = TTYBuffer(True)
+    main(ARGS, out=buf, environ={"NO_COLOR": ""})
+    assert "\033[96m" in buf.getvalue()
 
 
 def test_cli_output_colored_on_tty():

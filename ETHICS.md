@@ -14,9 +14,13 @@ before somebody else connects the dots. It is a mirror. Point it at yourself.
 3. **Offline by default.** Without `--live` it builds URLs and prints them,
    and sends nothing. With `--live` it sends one plain GET to each listed
    profile page for your alias, and nothing more. It doesn't log in, scrape
-   search engines, get around rate limits, or follow links.
-4. **Nothing leaves your machine.** No telemetry, no uploads. Results go to
-   your terminal and nowhere else.
+   search engines, get around rate limits, follow links, or follow HTTP
+   redirects: a redirect is reported (status and target) and never requested.
+4. **In the default dry-run mode, nothing leaves your machine.** No telemetry,
+   no uploads, no requests. Results go to your terminal and nowhere else.
+   `--live` is the exception: each profile site sees a request for your alias
+   from your IP address (your real name is never sent). Results still go only
+   to your terminal.
 5. **Respect the sites you query.** Live mode is meant for occasional manual
    runs, not loops, cron jobs or bulk lists.
 

@@ -39,7 +39,10 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--live",
         action="store_true",
-        help="actually request profile pages (default: offline dry run, prints URLs only)",
+        help=(
+            "actually request profile pages; this sends your alias to each site"
+            " (default: offline dry run, prints URLs only, nothing leaves your machine)"
+        ),
     )
     p.add_argument("--timeout", type=float, default=10.0, help="per-request timeout for --live (s)")
     p.add_argument("--version", action="version", version=f"{NAME} {VERSION}")
