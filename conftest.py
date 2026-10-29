@@ -1,0 +1,7 @@
+# Makes `python3 -m pytest` work from the repo root without installing.
+import pathlib
+import sys
+
+SRC = pathlib.Path(__file__).parent / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
